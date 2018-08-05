@@ -1,4 +1,4 @@
-> 客户端 `dubbo` 接入大众点评 `CAT` 监控平台
+> 客户端`dubbo`接入大众点评`CAT`监控平台。<br>接入后，在`CAT`控制台`Transaction`中会生成所有请求`WEB`服务（`URL`对应的`controller`）通过`dubbo`调用链路的`trace`信息。
 
 安装到本地仓库命令：
 
@@ -54,7 +54,7 @@ mvn clean install
 <dubbo:provider filter="CatClientFilter"/>
 ```
 
-建议配置在消费者端就可。
+建议配置在`web`项目（消费者端）就可。
 
 ---
 
