@@ -6,11 +6,10 @@ import com.alibaba.dubbo.rpc.Invoker;
 import com.alibaba.dubbo.rpc.Result;
 import com.alibaba.dubbo.rpc.RpcContext;
 import com.alibaba.dubbo.rpc.RpcException;
+import com.alibaba.fastjson.JSON;
 import com.dianping.cat.Cat;
 import com.dianping.cat.CatConstants;
 import com.dianping.cat.message.Transaction;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,13 +29,6 @@ public class CatClientFilter implements Filter {
 
     // 生产者端
     private static final String PROVIDER = "provider";
-
-    // Gson 序列化对象参数
-    private static final Gson GSON = new GsonBuilder()
-            .serializeNulls()
-            .disableHtmlEscaping()
-            .setDateFormat("yyyy-MM-dd HH:mm:ss")
-            .create();
 
     @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
@@ -98,7 +90,7 @@ public class CatClientFilter implements Filter {
         Object[] args = invocation.getArguments();
         if (args != null && args.length > 0) {
             for (Object arg : args) {
-                methodArgumentsBuilder.append(GSON.toJson(arg)).append(", ");
+                methodArgumentsBuilder.append(JSON.toJSONString(arg)).append(", ");
             }
             int length = methodArgumentsBuilder.length();
             methodArgumentsBuilder = methodArgumentsBuilder.replace(length - 2, length, "");
